@@ -14,11 +14,11 @@ def __link_is_valid(url_link):
     return bool(parsed.netloc) and bool(parsed.scheme)
 
 
-def __get_all_images_links(url_link):
+def __get_all_images_links(url_link, headers):
     """
     Get image from scrap
     """
-    response = requests.get(url_link)
+    response = requests.get(url_link, headers)
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, 'lxml')
         img_urls = []
@@ -48,7 +48,7 @@ def __get_dir_name(url_link):
     return str_dir
 
 
-def __download_image(img_url, path_dir):
+def __download_image(img_url, path_dir, headers):
     """
     Downloads an image
     """
@@ -63,7 +63,7 @@ def __download_image(img_url, path_dir):
     else:
         return
     try:
-        response = requests.get(img_url, stream=True)
+        response = requests.get(img_url, headers=headers, stream=True)
         if response.status_code == 200:
             with open(filename, 'wb') as file:
                 for chunk in response:
@@ -72,15 +72,15 @@ def __download_image(img_url, path_dir):
         print('An exception occurred')
 
 
-def get_images(url_link):
+def get_images(url_link, headers):
     """
     Get images from URL
     """
     try:
         if __link_is_valid(url_link):
-            img_list = __get_all_images_links(url_link)
+            img_list = __get_all_images_links(url_link, headers)
             path_dir = __get_dir_name(url_link)
             for img_item in tqdm(img_list, "Saving:"):
-                __download_image(img_item, path_dir)
+                __download_image(img_item, path_dir, headers)
     except (ValueError, Exception):
         print('An exception occurred')
