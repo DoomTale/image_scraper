@@ -68,16 +68,19 @@ def __download_image(img_url, path_dir):
             with open(filename, 'wb') as file:
                 for chunk in response:
                     file.write(chunk)
-    except:
-         print("An exception occurred")
+    except (ValueError, Exception):
+        print('An exception occurred')
 
 
 def get_images(url_link):
     """
     Get images from URL
     """
-    if __link_is_valid(url_link):
-        img_list = __get_all_images_links(url_link)
-        path_dir = __get_dir_name(url_link)
-        for img_item in tqdm(img_list, "Saving:"):
-            __download_image(img_item, path_dir)
+    try:
+        if __link_is_valid(url_link):
+            img_list = __get_all_images_links(url_link)
+            path_dir = __get_dir_name(url_link)
+            for img_item in tqdm(img_list, "Saving:"):
+                __download_image(img_item, path_dir)
+    except (ValueError, Exception):
+        print('An exception occurred')
