@@ -80,3 +80,14 @@ class GetImages(ImagesLinks):
                             file.write(chunk)
             except (ValueError, Exception):
                 print('An exception occurred')
+
+    def save_images_from_link(self):
+
+        try:
+            if self.ping():
+                self.get()
+                self.download_images()
+            else:
+                print('Wrong link')
+        except (ValueError, Exception):
+            print('An exception occurred')
