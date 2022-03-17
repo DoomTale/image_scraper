@@ -1,5 +1,5 @@
-from getimages import GetImages
+from getimages import ImagesFromLinks
 
 url_link = input('>')
-links = GetImages(url_link)
+links = ImagesFromLinks(url_link)
 links.save_images_from_link()

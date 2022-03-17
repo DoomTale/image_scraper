@@ -45,7 +45,7 @@ class ImagesLinks:
             print('An exception occurred')
 
 
-class GetImages(ImagesLinks):
+class ImagesFromLinks(ImagesLinks):
 
     def __get_dir_name(self):
         """
