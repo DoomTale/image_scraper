@@ -45,10 +45,7 @@ class ImagesLinks:
             print('An exception occurred')
 
 
-class Images:
-    def __init__(self, url, img_urls):
-        self.url = url
-        self.img_urls = img_urls
+class GetImages(ImagesLinks):
 
     def __get_dir_name(self):
         """
@@ -59,14 +56,14 @@ class Images:
         str_dir = 'images/' + line
         return str_dir
 
-    def download_image(self):
+    def download_images(self):
         """
         Downloads an image
         """
         path_dir = self.__get_dir_name()
         if not os.path.isdir(path_dir):
             os.makedirs(path_dir)
-        for img_url in tqdm(self.img_urls, "Saving:"):
+        for img_url in tqdm(self.links, "Saving:"):
             try:
                 filename = os.path.join(path_dir, img_url.split('/')[-1])
                 file_extension = pathlib.Path(filename).suffix
@@ -83,4 +80,3 @@ class Images:
                             file.write(chunk)
             except (ValueError, Exception):
                 print('An exception occurred')
-

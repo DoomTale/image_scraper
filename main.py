@@ -1,9 +1,9 @@
-from getimages import ImagesLinks, Images
-
+from getimages import GetImages
 
 url_link = input('>')
-links = ImagesLinks(url_link)
+links = GetImages(url_link)
 if links.ping():
     links.get()
-    images = Images(url_link, links.links)
-    images.download_image()
+    links.download_images()
+else:
+    print('Wrong link')
